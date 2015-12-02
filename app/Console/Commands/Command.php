@@ -8,10 +8,19 @@ use Illuminate\Console\Command as LaravelCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
-use App\Console\ReturnCode as ConsoleReturnCode;
 
 class Command extends LaravelCommand
 {
+    /**
+     * 正常
+     */
+    const SUCCESS = 0;
+
+    /**
+     * 致命的なエラー
+     */
+    const FATAL_ERROR = 1;
+
     /**
      * The console single process.
      *
@@ -53,13 +62,13 @@ class Command extends LaravelCommand
             $lock = $this->getLockHandler();
             if (!$lock->lock()) {
                 Log::info(Lang::get('console.already'));
-                return ConsoleReturnCode::SUCCESS;
+                return self::SUCCESS;
             }
         }
 
         $returnCode = parent::run($input, $output);
 
-        if ($returnCode === ConsoleReturnCode::SUCCESS) {
+        if ($returnCode === self::SUCCESS) {
             Log::info(Lang::get('console.success', ['name' => $this->name]));
         } else {
             Log::error(Lang::get('console.fail', ['name' => $this->name]));

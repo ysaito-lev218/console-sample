@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Log;
-use App\Console\ReturnCode as ConsoleReturnCode;
 use App\Services\ApplicantServiceInterface;
 
 class OutputApplicantCommand extends Command
@@ -58,6 +57,6 @@ class OutputApplicantCommand extends Command
         // 応募者情報一覧CSV出力
         $result = $this->applicantService->output($options);
 
-        return $result ? ConsoleReturnCode::SUCCESS : ConsoleReturnCode::FATAL_ERROR;
+        return $result ? parent::SUCCESS : parent::FATAL_ERROR;
     }
 }
