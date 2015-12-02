@@ -18,7 +18,7 @@ php artisan applicant:output --company=2010
 
 ### ベースコード
 
-[BaseCommand.php](https://github.com/ysaito-lev218/console-sample/blob/master/app/Console/Commands/BaseCommand.php)
+[Command.php](https://github.com/ysaito-lev218/console-sample/blob/master/app/Console/Commands/Command.php)
 
 * 二重起動防止（データベースでの管理ではないです...）
 * 共通のログ出力
