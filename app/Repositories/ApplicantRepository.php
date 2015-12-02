@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Applicant;
+use App\Models\Applicant;
 
 /**
  * Created by PhpStorm.

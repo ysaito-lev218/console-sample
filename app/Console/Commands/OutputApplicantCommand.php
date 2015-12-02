@@ -6,7 +6,7 @@ use Log;
 use App\Console\ReturnCode as ConsoleReturnCode;
 use App\Services\ApplicantServiceInterface;
 
-class OutputApplicantCommand extends BaseCommand
+class OutputApplicantCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -54,18 +54,10 @@ class OutputApplicantCommand extends BaseCommand
     {
         // オプションを取得
         $options = $this->option();
-        try {
-            // 応募者情報一覧CSV出力
-            $filename = $this->applicantService->output($options);
-        } catch (\Exception $e) {
-            // エラーメッセージをログへ出力
-            Log::error($e->getMessage());
-            // 失敗コードを返却
-            return ConsoleReturnCode::FAIL;
-        }
-        // 出力ファイル名をコンソール上に出力
-        $this->line("<info>Created File:</info> $filename");
-        // 成功コードを返却
-        return ConsoleReturnCode::SUCCESS;
+
+        // 応募者情報一覧CSV出力
+        $result = $this->applicantService->output($options);
+
+        return $result ? ConsoleReturnCode::SUCCESS : ConsoleReturnCode::FATAL_ERROR;
     }
 }

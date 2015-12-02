@@ -4,13 +4,13 @@ namespace App\Console\Commands;
 
 use Log;
 use Lang;
-use Illuminate\Console\Command;
+use Illuminate\Console\Command as LaravelCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\LockHandler;
 use App\Console\ReturnCode as ConsoleReturnCode;
 
-class BaseCommand extends Command
+class Command extends LaravelCommand
 {
     /**
      * The console single process.
@@ -46,13 +46,12 @@ class BaseCommand extends Command
         Log::info(Lang::get('console.start', ['name' => $this->name]));
 
         // set memory limit.
-        ini_set('memory_limit', '512M');
+        ini_set('memory_limit', '1024M');
 
         $lock = null;
         if ($this->isSingle) {
             $lock = $this->getLockHandler();
             if (!$lock->lock()) {
-//                $output->writeln('The command is already running in another process.');
                 Log::info(Lang::get('console.already'));
                 return ConsoleReturnCode::SUCCESS;
             }
