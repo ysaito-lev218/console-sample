@@ -22,3 +22,4 @@ php artisan applicant:output --company=2010
 
 * 二重起動防止（データベースでの管理ではないです...）
 * 共通のログ出力
+* リターンコード
