@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Log;
 use App\Services\ApplicantServiceInterface;
 
 class OutputApplicantCommand extends Command
